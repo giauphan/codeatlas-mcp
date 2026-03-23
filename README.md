@@ -2,6 +2,7 @@
 
 **MCP server for [CodeAtlas](https://github.com/giauphan/CodeAtlas) — Expose code analysis data to AI assistants**
 
+[![npm version](https://img.shields.io/npm/v/@giauphan/codeatlas-mcp.svg)](https://www.npmjs.com/package/@giauphan/codeatlas-mcp)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue?logo=typescript)
 
@@ -28,10 +29,13 @@ A standalone [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) se
 ## Installation
 
 ```bash
-git clone https://github.com/giauphan/codeatlas-mcp.git
-cd codeatlas-mcp
-npm install
-npm run build
+npm install -g @giauphan/codeatlas-mcp
+```
+
+Or use directly with `npx` (no install needed):
+
+```bash
+npx @giauphan/codeatlas-mcp
 ```
 
 ## Configuration
@@ -44,8 +48,8 @@ Add to your AI assistant's MCP config:
 {
   "mcpServers": {
     "codeatlas": {
-      "command": "node",
-      "args": ["/absolute/path/to/codeatlas-mcp/dist/index.js"]
+      "command": "npx",
+      "args": ["-y", "@giauphan/codeatlas-mcp"]
     }
   }
 }
@@ -57,8 +61,21 @@ Add to your AI assistant's MCP config:
 {
   "mcpServers": {
     "codeatlas": {
-      "command": "node",
-      "args": ["/absolute/path/to/codeatlas-mcp/dist/index.js"]
+      "command": "npx",
+      "args": ["-y", "@giauphan/codeatlas-mcp"]
+    }
+  }
+}
+```
+
+### Cursor (`.cursor/mcp.json`)
+
+```json
+{
+  "mcpServers": {
+    "codeatlas": {
+      "command": "npx",
+      "args": ["-y", "@giauphan/codeatlas-mcp"]
     }
   }
 }
@@ -71,6 +88,16 @@ Add to your AI assistant's MCP config:
 | `CODEATLAS_PROJECT_DIR` | Optional: specify a project directory to analyze |
 
 The server auto-discovers projects by scanning `~/` for `.codeatlas/analysis.json` files.
+
+## Development
+
+```bash
+git clone https://github.com/giauphan/codeatlas-mcp.git
+cd codeatlas-mcp
+npm install
+npm run build
+npm start
+```
 
 ## License
 
