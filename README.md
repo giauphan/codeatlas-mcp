@@ -5,7 +5,7 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue?logo=typescript)
 ![Node](https://img.shields.io/badge/Node-%3E%3D18-brightgreen?logo=node.js)
 
-> A standalone [MCP](https://modelcontextprotocol.io/) server that exposes [CodeAtlas](https://github.com/giauphan/CodeAtlas) analysis data to AI assistants — **Gemini, Claude, Cursor, Windsurf**, and more.
+> A standalone [MCP](https://modelcontextprotocol.io/) server that exposes [CodeAtlas](https://github.com/giauphan/CodeAtlas) analysis data to AI assistants — **Gemini, Claude, Cursor, Windsurf, VS Code Copilot**, and more.
 
 ---
 
@@ -23,14 +23,34 @@ This generates `.codeatlas/analysis.json` in your project root.
 
 ### 2. Add MCP config
 
-Copy the JSON block below into **one** of these files depending on your AI assistant:
+Pick your AI assistant and add the config:
 
-| AI Assistant | Config file |
-|---|---|
-| **Gemini** | `.gemini/settings.json` |
-| **Claude Desktop** | `claude_desktop_config.json` |
-| **Cursor** | `.cursor/mcp.json` |
-| **Windsurf** | `.windsurf/mcp.json` |
+<details>
+<summary>🔵 <b>VS Code (Copilot / GitHub Copilot Chat)</b></summary>
+
+Open **Settings** (`Ctrl+,`) → search `mcp` → click **Edit in settings.json**, then add:
+
+```json
+{
+  "mcp": {
+    "servers": {
+      "codeatlas": {
+        "command": "npx",
+        "args": ["-y", "@giauphan/codeatlas-mcp"]
+      }
+    }
+  }
+}
+```
+
+Or add via workspace `.vscode/settings.json` for per-project config.
+
+</details>
+
+<details>
+<summary>🟢 <b>Gemini</b></summary>
+
+Add to `.gemini/settings.json`:
 
 ```json
 {
@@ -42,6 +62,62 @@ Copy the JSON block below into **one** of these files depending on your AI assis
   }
 }
 ```
+
+</details>
+
+<details>
+<summary>🟣 <b>Claude Desktop</b></summary>
+
+Add to `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "codeatlas": {
+      "command": "npx",
+      "args": ["-y", "@giauphan/codeatlas-mcp"]
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>⚫ <b>Cursor</b></summary>
+
+Add to `.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "codeatlas": {
+      "command": "npx",
+      "args": ["-y", "@giauphan/codeatlas-mcp"]
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>🔴 <b>Windsurf</b></summary>
+
+Add to `.windsurf/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "codeatlas": {
+      "command": "npx",
+      "args": ["-y", "@giauphan/codeatlas-mcp"]
+    }
+  }
+}
+```
+
+</details>
 
 > **That's it!** Your AI assistant can now query your codebase structure, dependencies, and insights.
 
@@ -68,17 +144,7 @@ If you prefer installing globally instead of using `npx`:
 npm install -g @giauphan/codeatlas-mcp
 ```
 
-Then update your MCP config to:
-
-```json
-{
-  "mcpServers": {
-    "codeatlas": {
-      "command": "codeatlas-mcp"
-    }
-  }
-}
-```
+Then use `"command": "codeatlas-mcp"` (no `args` needed) in your MCP config.
 
 ---
 
