@@ -1,0 +1,38 @@
+{
+  "name": "codeatlas-mcp",
+  "version": "1.2.2",
+  "description": "MCP server for CodeAtlas — Expose code analysis data to AI assistants",
+  "main": "dist/index.js",
+  "bin": {
+    "codeatlas-mcp": "dist/index.js"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc && node dist/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "codeatlas",
+    "code-analysis",
+    "ai",
+    "gemini",
+    "claude",
+    "cursor"
+  ],
+  "author": "giauphan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/giauphan/codeatlas-mcp"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.x",
+    "typescript": "^5.1.6"
+  }
+}
