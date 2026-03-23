@@ -1,6 +1,6 @@
 {
   "name": "@giauphan/codeatlas-mcp",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "MCP server for CodeAtlas — exposes code analysis data to AI assistants via Model Context Protocol",
   "type": "module",
   "main": "dist/index.js",
