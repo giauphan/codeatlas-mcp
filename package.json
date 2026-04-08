@@ -1,6 +1,6 @@
 {
   "name": "@giauphan/codeatlas-mcp",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "MCP server for CodeAtlas — exposes code analysis data to AI assistants via Model Context Protocol",
   "type": "module",
   "main": "dist/index.js",
@@ -43,7 +43,7 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.12.1",
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "zod": "^3.24.4"
   },
   "devDependencies": {
