@@ -2,6 +2,13 @@
 
 All notable changes to codeatlas-mcp are documented here.
 
+## [1.5.0] - 2026-04-16
+
+### Changed
+- Version sync with CodeAtlas extension v1.5.0 (auto-generate memory feature)
+
+---
+
 ## [1.4.3] - 2026-04-16
 
 ### Fixed
