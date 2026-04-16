@@ -125,7 +125,7 @@ function loadAnalysis(projectDir?: string): { analysis: AnalysisResult; projectN
 // Create MCP server
 const server = new McpServer({
   name: "codeatlas",
-  version: "1.4.2",
+  version: "1.4.3",
 });
 
 // Tool 0: List all discovered projects
@@ -673,7 +673,8 @@ server.tool(
     let businessRules: Array<{ rule: string; addedAt: string }> = [];
     if (fs.existsSync(businessRulesPath)) {
       try {
-        businessRules = JSON.parse(fs.readFileSync(businessRulesPath, "utf-8"));
+        const parsedBR = JSON.parse(fs.readFileSync(businessRulesPath, "utf-8"));
+        businessRules = Array.isArray(parsedBR) ? parsedBR : [];
       } catch { /* start fresh */ }
     }
     if (businessRule) {
@@ -686,7 +687,8 @@ server.tool(
     let changeLog: Array<{ description: string; timestamp: string }> = [];
     if (fs.existsSync(changeLogPath)) {
       try {
-        changeLog = JSON.parse(fs.readFileSync(changeLogPath, "utf-8"));
+        const parsedCL = JSON.parse(fs.readFileSync(changeLogPath, "utf-8"));
+        changeLog = Array.isArray(parsedCL) ? parsedCL : [];
       } catch { /* start fresh */ }
     }
     if (changeDescription) {
