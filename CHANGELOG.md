@@ -2,6 +2,13 @@
 
 All notable changes to codeatlas-mcp are documented here.
 
+## [1.6.0] - 2026-04-16
+
+### Added
+- **New MCP Tool: `generate_feature_flow_diagram`** — Mermaid execution flow diagrams for features (flowchart + sequence)
+
+---
+
 ## [1.5.0] - 2026-04-16
 
 ### Changed
