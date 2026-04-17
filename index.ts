@@ -117,7 +117,8 @@ function loadAnalysis(projectDir?: string): { analysis: AnalysisResult; projectN
   try {
     const data = fs.readFileSync(target.analysisPath, "utf-8");
     return { analysis: JSON.parse(data), projectName: target.name, projectDir: target.dir };
-  } catch {
+  } catch (e) {
+    console.error(`[CodeAtlas] ERROR: Failed to parse analysis file at ${target.analysisPath}: ${e}`);
     return null;
   }
 }
@@ -125,7 +126,7 @@ function loadAnalysis(projectDir?: string): { analysis: AnalysisResult; projectN
 // Create MCP server
 const server = new McpServer({
   name: "codeatlas",
-  version: "1.6.5",
+  version: "1.6.6",
 });
 
 // Tool 0: List all discovered projects
@@ -821,7 +822,7 @@ server.tool(
       return { content: [{ type: "text" as const, text: "No analysis data found. Run 'CodeAtlas: Analyze Project' first." }] };
     }
 
-    const maxDepth = depth || 2;
+    const maxDepth = Math.min(depth || 2, 10);
     const q = keyword.toLowerCase();
     const nodes = loaded.analysis.graph.nodes;
     const links = loaded.analysis.graph.links;
@@ -898,7 +899,6 @@ server.tool(
     const filesArray = Array.from(byFile.entries())
       .map(([filePath, entities]) => ({
         filePath: filePath === "external" ? "external" : path.relative(loaded.projectDir, filePath),
-        absolutePath: filePath,
         entities,
         hasSeedMatch: entities.some((e) => e.isSeed),
         entityCount: entities.length,
@@ -958,7 +958,7 @@ server.tool(
     }
 
     const q = keyword.toLowerCase();
-    const maxDepth = depth || 3;
+    const maxDepth = Math.min(depth || 3, 10);
     const maxN = maxNodes || 40;
     const dType = diagramType || "flowchart";
     const nodes = loaded.analysis.graph.nodes;

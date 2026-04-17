@@ -2,6 +2,13 @@
 
 All notable changes to codeatlas-mcp are documented here.
 
+## [1.6.6] - 2026-04-17
+
+### Fixed
+- **Security**: Remove `absolutePath` leak from `trace_feature_flow` response (no longer exposes user home directory)
+- **Robustness**: Cap BFS depth to max 10 in `trace_feature_flow` and `generate_feature_flow_diagram` to prevent response explosion
+- **Debugging**: `loadAnalysis()` now logs error details on JSON parse failure instead of silently returning null
+
 ## [1.6.5] - 2026-04-17
 
 ### Fixed
