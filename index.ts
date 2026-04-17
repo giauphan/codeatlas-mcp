@@ -668,28 +668,44 @@ server.tool(
 
     fs.writeFileSync(path.join(memoryDir, "feature-flows.json"), JSON.stringify(featureFlows, null, 2));
 
-    // === 4. business-rules.json — Persist business rules ===
+    // === 4. business-rules.json — Persist business rules (APPEND, never overwrite) ===
     const businessRulesPath = path.join(memoryDir, "business-rules.json");
     let businessRules: Array<{ rule: string; addedAt: string }> = [];
     if (fs.existsSync(businessRulesPath)) {
       try {
-        const parsedBR = JSON.parse(fs.readFileSync(businessRulesPath, "utf-8"));
+        const rawBR = fs.readFileSync(businessRulesPath, "utf-8");
+        const parsedBR = JSON.parse(rawBR);
         businessRules = Array.isArray(parsedBR) ? parsedBR : [];
-      } catch { /* start fresh */ }
+      } catch (e) {
+        // Backup corrupt file instead of silently losing data
+        const backupPath = businessRulesPath + `.backup-${Date.now()}`;
+        try { fs.copyFileSync(businessRulesPath, backupPath); } catch { /* ignore */ }
+        console.error(`[CodeAtlas] WARNING: Failed to parse ${businessRulesPath}, backed up to ${backupPath}. Error: ${e}`);
+      }
     }
     if (businessRule) {
-      businessRules.push({ rule: businessRule, addedAt: new Date().toISOString() });
+      // Deduplicate: don't add the same rule twice
+      const exists = businessRules.some((br) => br.rule === businessRule);
+      if (!exists) {
+        businessRules.push({ rule: businessRule, addedAt: new Date().toISOString() });
+      }
     }
     fs.writeFileSync(businessRulesPath, JSON.stringify(businessRules, null, 2));
 
-    // === 5. change-log.json — Track recent changes ===
+    // === 5. change-log.json — Track recent changes (PREPEND, never overwrite) ===
     const changeLogPath = path.join(memoryDir, "change-log.json");
     let changeLog: Array<{ description: string; timestamp: string }> = [];
     if (fs.existsSync(changeLogPath)) {
       try {
-        const parsedCL = JSON.parse(fs.readFileSync(changeLogPath, "utf-8"));
+        const rawCL = fs.readFileSync(changeLogPath, "utf-8");
+        const parsedCL = JSON.parse(rawCL);
         changeLog = Array.isArray(parsedCL) ? parsedCL : [];
-      } catch { /* start fresh */ }
+      } catch (e) {
+        // Backup corrupt file instead of silently losing data
+        const backupPath = changeLogPath + `.backup-${Date.now()}`;
+        try { fs.copyFileSync(changeLogPath, backupPath); } catch { /* ignore */ }
+        console.error(`[CodeAtlas] WARNING: Failed to parse ${changeLogPath}, backed up to ${backupPath}. Error: ${e}`);
+      }
     }
     if (changeDescription) {
       changeLog.unshift({ description: changeDescription, timestamp: new Date().toISOString() });
