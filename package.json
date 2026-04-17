@@ -1,6 +1,6 @@
 {
   "name": "@giauphan/codeatlas-mcp",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "description": "MCP server that gives AI assistants (Gemini, Claude, Cursor, Windsurf, Copilot) deep understanding of your codebase — 10 tools + persistent memory",
   "type": "module",
   "main": "dist/index.js",

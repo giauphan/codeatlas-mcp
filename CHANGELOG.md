@@ -2,12 +2,13 @@
 
 All notable changes to codeatlas-mcp are documented here.
 
-## [1.6.4] - 2026-04-17
+## [1.6.5] - 2026-04-17
 
 ### Fixed
 - **Data loss prevention**: `business-rules.json` and `change-log.json` now backup corrupt files instead of silently resetting to empty array
 - **Deduplication**: Business rules with identical text are no longer added twice
 - Added `[CodeAtlas] WARNING` stderr logs when JSON parse fails for debugging
+- **conventions.md preserved**: No longer overwrites user/AI-added notes (error patterns, fix guides). Auto-detected sections update separately via HTML marker
 
 ---
 
