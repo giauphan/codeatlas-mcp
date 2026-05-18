@@ -527,7 +527,7 @@ server.tool(
     }
 
     const memoryDir = path.join(loaded.projectDir, ".agents", "memory");
-    
+
     // Create directory structure
     try {
       fs.mkdirSync(memoryDir, { recursive: true });
